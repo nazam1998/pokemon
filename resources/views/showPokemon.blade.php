@@ -6,21 +6,23 @@
     <div class="card" style="width: 18rem;">
         <img src="{{asset('storage/'.$pokemon->image)}}" class="card-img-top">
         <hr>
-        <div class="card-body">
+        <div class="card-body text-center">
             <h5 class="card-title">{{$pokemon->nom}}</h5>
             <p class="card-text">Type: <span style="color: {{$type->color}}">{{$type->type}}</span></p>
             <p class="card-text">Niveau: {{$pokemon->niveau}}</p>
-            <div class="row">
+            <div class="row text-center">
                 @auth
                 @if(Auth::user()->id_role==2)
-                <a href="{{route('adopt',$pokemon->id)}}" class="mx-auto my-2 btn btn-success">Adopter</a>
+                <p class="card-text w-100">
+                    <a href="{{route('adopt',$pokemon->id)}}" class="mx-auto my-2"><img src="{{asset('storage/pokeball.jpg')}}" alt=""></a>
+                </p>
                 @endif
                 @if($pokemon->id_user==Auth::id())
-                <p class="card-text"><a href="{{route('release',$pokemon->id)}}" class="btn btn-danger">Relâcher</a></p>
+                <p class="card-text w-100"><a href="{{route('release',$pokemon->id)}}" class="mx-auto my-2"><img src="{{asset('storage/openball.png')}}" alt=""></a></p>
                 @endif
                 @endauth
-                <a href="{{route('editPokemon',$pokemon->id)}}" class="btn btn-warning mx-2">Edit</a>
-                <a href="{{route('deletePokemon',$pokemon->id)}}" class="btn btn-danger">Delete</a>
+                <a href="{{route('editPokemon',$pokemon->id)}}" class="col-5 mx-3 btn btn-warning">Edit</a>
+                <a href="{{route('deletePokemon',$pokemon->id)}}" class="col-5 btn btn-danger">Delete</a>
             </div>
         </div>
     </div>

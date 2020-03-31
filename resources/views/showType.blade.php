@@ -22,7 +22,7 @@
                     <td style="border-color: {{$type->color}}">{{$item->nom}}</td>
                     <td style="border-color: {{$type->color}}">{{$item->niveau}}</td>
                     <td style="border-color: {{$type->color}}"><img src="{{asset('storage/'.$item->image)}}" alt=""></td>
-                    <td style="border-color: {{$type->color}}"><a href="{{route('showPokemon',$item->id)}}" class="btn btn-success">Show Pokemon</a></td>
+                    <td style="border-color: {{$type->color}}"><a href="{{route('showPokemon',$item->id)}}"><img src="{{asset('storage/pokedex.png')}}" alt=""></a></td>
                     <td style="border-color: {{$type->color}}"><a href="{{route('editPokemon',$item->id)}}" class="btn btn-warning">Edit Pokemon</a></td>
                     <td style="border-color: {{$type->color}}"><a href="{{route('deletePokemon',$item->id)}}" class="btn btn-danger">Delete Pokemon</a></td>
                     </tr>

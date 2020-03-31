@@ -3,19 +3,19 @@
 @section('title','Accueil')
 @section('content')
 <div class="container text-center mx-auto">
-    <div class="row">  
+    <div class="row text-center">  
         @foreach ($pokemons as $item)
-        <div class="card col-3" style="width: 18rem;">
+        <div class="card col-3 my-1" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">{{$item->nom}}</h5>
-                <p class="card-text">Type : {{$types->where('id',$item->id_type)->first()->type}}</p>
-                <a href="{{route('showPokemon',$item->id)}}" class="btn btn-primary my-2">Show</a>
+                <p class="card-text">Type : <span style="color: {{$types->where('id',$item->id_type)->first()->color}}"> {{$types->where('id',$item->id_type)->first()->type}}</span></p>
+                <a href="{{route('showPokemon',$item->id)}}" class="my-2"><img src="{{asset('storage/pokedex.png')}}" alt=""></a>
                 @auth
 
                     @if (Auth::user()->id_role==2)
-            <a href="{{route('adopt',$item->id)}}" class="btn btn-success">Catch</a>
+            <a href="{{route('adopt',$item->id)}}"><img src="{{asset('storage/pokeball.jpg')}}" alt=""></a>
                     @elseif($item->id_user==Auth::id())
-                    <a href="{{route('release',$item->id)}}" class="btn btn-danger">Release</a>
+                    <a href="{{route('release',$item->id)}}"><img src="{{asset('storage/openball.png')}}" alt=""></a>
                     @endif
                 @endauth
             </div>

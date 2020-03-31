@@ -20,6 +20,6 @@ class hasPokeball
 
             return $next($request);
         }
-        return redirect()->back();
+        return redirect()->back()->withErrors(['msg'=>'You don\'t have enough pokeball']);
     }
 }

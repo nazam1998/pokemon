@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layouts.app')
 
 @section('title','Pokemons')
 
@@ -24,7 +24,7 @@
                     <td style="color: {{$types->where('id',$item->id_type)->first()->color}}">{{$types->where('id',$item->id_type)->first()->type}}</td>
                     <td>{{$item->niveau}}</td>
                     <td><img src="{{asset('storage/'.$item->image)}}" alt=""></td>
-                    <td><a href="{{route('showPokemon',$item->id)}}" class="btn btn-success">Show Pokemon</a></td>
+                    <td><a href="{{route('showPokemon',$item->id)}}"><img src="{{asset('storage/pokedex.png')}}" alt=""></a></td>
                     <td><a href="{{route('editPokemon',$item->id)}}" class="btn btn-warning">Edit Pokemon</a></td>
                     <td><a href="{{route('deletePokemon',$item->id)}}" class="btn btn-danger">Delete Pokemon</a></td>
                     </tr>

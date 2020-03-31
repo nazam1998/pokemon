@@ -18,6 +18,7 @@ class CreatePokemonsTable extends Migration
             $table->string('nom');
             $table->integer('niveau');
             $table->string('image');
+
             $table->unsignedBigInteger('id_type');
             $table->foreign('id_type')->on('types')->references('id')->onDelete('cascade')->onUpdate('cascade');
 

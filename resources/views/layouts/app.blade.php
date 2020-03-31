@@ -25,8 +25,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{route('welcome')}}"><img src="{{asset('storage/logo.svg')}}"
-                        class="img-fluid col-2" alt=""></a>
+                <a class="navbar-brand" href="{{route('welcome')}}"><img src="{{asset('storage/logo.svg')}}" alt=""></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="{{ __('Toggle navigation') }}">
@@ -37,23 +36,18 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('pokemon')}}">Pokemons</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('type')}}">Types</a>
+                        </li>
                         @error('msg')
-                        <li class="nav-item" style="position: absolute;top: 0;left: 50%;">
+                        <li class="nav-item" style="position: absolute;top: 10%;left: 35%;">
                             <span class="nav-link text-danger">{{$message}}</span>
                         </li>
                         @enderror
-                        <li class="nav-item">
-                            <span class="nav-link text-center">Credits: {{Auth::user()->credits}}</span>
-                        </li>
-                        <li class="nav-item">
-                            <span class="nav-link text-center">Pokeball: {{Auth::user()->pokeball}}</span>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('buy')}}">Buy More</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('recharge')}}">Top up</a>
-                        </li>
+                        
                         @endauth
                     </ul>
 
@@ -70,7 +64,18 @@
                         </li>
                         @endif
                         @else
-
+                        <li class="nav-item">
+                            <span class="nav-link text-center">Credits: {{Auth::user()->credits}}</span>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link text-center">Pokeball: {{Auth::user()->pokeball}}</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('buy')}}">Buy More</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('recharge')}}">Top up</a>
+                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('profile')}}">My Pokemon</a>
