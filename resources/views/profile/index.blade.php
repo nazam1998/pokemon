@@ -46,7 +46,7 @@
                     
             </div>
             @else 
-                <h5 class="text-danger text-center">You don't have any pokemon</h5>
+                <h5 class="text-danger text-center">Vous n'avez actuellement aucun pokemon en votre possession</h5>
             @endif
             
         </div>

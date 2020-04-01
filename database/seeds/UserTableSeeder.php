@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserTableSeeder extends Seeder
 {
@@ -11,6 +13,14 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('users')->insert([
+            'name'=>'Nazam',
+            'email'=>'nazam90-be@mail.com',
+            'password'=>Hash::make('Nazam1998'),
+            'pokeball'=>0,
+            'abandon'=>0,
+            'id_role'=>2,
+            'credits'=>1000
+        ]);
     }
 }
