@@ -45,6 +45,22 @@
                 @endforeach
             </select>
         </div>
+        
+        <div class="form-group">
+            <label for="genre">Genre</label>
+            @error('id_genre')
+            <small>{{$message}}</small>
+            @enderror
+            <select name="id_genre" id="genre" class="custom-select">
+                @foreach ($genres as $item)
+                @if (old('id_genre')==$item->id)
+                <option selected value="{{$item->id}}">{{$item->genre}}</option>
+                @else
+                <option value="{{$item->id}}">{{$item->genre}}</option>
+                @endif
+                @endforeach
+            </select>
+        </div>
         <button type="submit" class="btn btn-success">Ajouter</button>
     </form>
 </div>

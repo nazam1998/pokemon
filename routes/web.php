@@ -36,6 +36,15 @@ Route::post('admin/type/save','TypeController@store')->name('saveType');
 Route::get('admin/type/edit/{id}','TypeController@edit')->name('editType');
 Route::post('admin/type/update/{id}','TypeController@update')->name('updateType');
 Route::get('admin/type/delete/{id}','TypeController@destroy')->name('deleteType');
+
+Route::get('showGenre/{id}','GenreController@show')->name('showGenre');
+Route::get('admin/genre','GenreController@index')->name('genre');
+Route::get('admin/genre/add','GenreController@create')->name('addGenre');
+Route::post('admin/genre/save','GenreController@store')->name('saveGenre');
+Route::get('admin/genre/edit/{id}','GenreController@edit')->name('editGenre');
+Route::post('admin/genre/update/{id}','GenreController@update')->name('updateGenre');
+Route::get('admin/genre/delete/{id}','GenreController@destroy')->name('deleteGenre');
+
 Auth::routes();
 
 Route::get('/profile','ProfileController@index')->name('profile');

@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','id_role','pokeball','abandon','credits',
+        'name', 'email', 'password', 'id_role', 'pokeball', 'abandon', 'credits',
     ];
 
     /**
@@ -36,4 +36,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo('App\Role', 'id_role');
+    }
+    public function pokemon()
+    {
+        return $this->hasOne('App\Pokemon', 'id_user');
+    }
 }

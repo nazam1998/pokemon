@@ -33,7 +33,7 @@
         </div>
 
         <div class="form-group">
-            <label for="type">Pokemon</label>
+            <label for="type">Type</label>
             @error('id_type')
             <small>{{$message}}</small>
             @enderror
@@ -43,6 +43,22 @@
                 <option selected value="{{$item->id}}">{{$item->type}}</option>
                 @else
                 <option value="{{$item->id}}">{{$item->type}}</option>
+                @endif
+                @endforeach
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="genre">Genre</label>
+            @error('id_genre')
+            <small>{{$message}}</small>
+            @enderror
+            <select name="id_genre" id="genre" class="custom-select">
+                @foreach ($genres as $item)
+                @if ($item->id==old('id_genre',$poke->id_genre))
+                <option selected value="{{$item->id}}">{{$item->genre}}</option>
+                @else
+                <option value="{{$item->id}}">{{$item->genre}}</option>
                 @endif
                 @endforeach
             </select>

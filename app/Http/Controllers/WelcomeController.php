@@ -9,8 +9,7 @@ use App\Type;
 class WelcomeController extends Controller
 {
     public function index(){
-        $pokemons=Pokemon::all();
-        $types=Type::all();
+        $pokemons=Pokemon::paginate(5);
         return view('welcome',compact('pokemons','types'));
     }
 }

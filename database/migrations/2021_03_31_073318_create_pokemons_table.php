@@ -22,6 +22,9 @@ class CreatePokemonsTable extends Migration
             $table->unsignedBigInteger('id_type');
             $table->foreign('id_type')->on('types')->references('id')->onDelete('cascade')->onUpdate('cascade');
 
+            $table->unsignedBigInteger('id_genre');
+            $table->foreign('id_genre')->on('genres')->references('id')->onDelete('cascade')->onUpdate('cascade');
+
             $table->unsignedBigInteger('id_user')->nullable();
             $table->foreign('id_user')->on('users')->references('id');
 

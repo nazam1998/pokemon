@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 use App\Pokemon;
-use App\Type;
+use App\Genre;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class TypeController extends Controller
+class GenreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types=Type::all();
-        return view('admin.type.index',compact('types'));
+        $genres=Genre::all();
+        return view('admin.genre.index',compact('genres'));
     }
 
     /**
@@ -28,7 +28,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        return view('admin.type.add');
+        return view('admin.genre.add');
     }
 
     /**
@@ -40,90 +40,75 @@ class TypeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'type'=>'required|string|unique:types',
-            'color'=>["required","regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/"]
+            'genre'=>'required|string|unique:genres',
         ]);
-        $type=new Type();
-        $type->type=$request->type;
-        $type->color=$request->color;
-        $type->save();
-        return redirect()->route('type');
+        $genre=new Genre();
+        $genre->genre=$request->genre;
+        $genre->save();
+        return redirect()->route('genre');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Type  $type
+     * @param  \App\Genre  $genre
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $type=Type::find($id);
-        $pokemons=Pokemon::where('id_type',$id)->paginate(10);
-        return view('showType',compact('type','pokemons'));
+        $genre=Genre::find($id);
+        $pokemons=Pokemon::where('id_genre',$id)->paginate(10);
+        return view('showGenre',compact('genre','pokemons'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Type  $type
+     * @param  \App\Genre  $genre
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $type=Type::find($id);
-        return view('admin.type.edit',compact('type'));
+        $genre=Genre::find($id);
+        return view('admin.genre.edit',compact('genre'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Type  $type
+     * @param  \App\Genre  $genre
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $request->validate([
-            'type'=>'required|string|unique:types,type,'.$id,
-            'color'=>["required","regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/"]
+            'genre'=>'required|string|unique:genres,genre,'.$id,
         ]);
-        $type=Type::find($id);
-        $type->type=$request->type;
-        $type->color=$request->color;
-        $type->save();
-        return redirect()->route('type');
+        $genre=Genre::find($id);
+        $genre->genre=$request->genre;
+        $genre->save();
+        return redirect()->route('genre');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Type  $type
+     * @param  \App\Genre  $genre
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $type=Type::find($id);
+        $genre=Genre::find($id);
    
-        foreach ($type->pokemons as $item) {
+        foreach ($genre->pokemons as $item) {
             if($item->id_user!=null){
                 $item->user->id_role=2;
                 $item->user->save();
             }
             $item->delete();
         }
-        $type->delete();
+        $genre->delete();
         return redirect()->back();
-    }
-    public function paginate($items, $perPage, $page = null, $options = [])
-
-    {
-
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
-
     }
 }

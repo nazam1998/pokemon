@@ -8,7 +8,8 @@
         <hr>
         <div class="card-body text-center">
             <h5 class="card-title">{{$pokemon->nom}}</h5>
-            <p class="card-text">Type: <span style="color: {{$type->color}}">{{$type->type}}</span></p>
+            <p class="card-text">Genre: {{$pokemon->genre->genre}}</p>
+            <p class="card-text">Type: <span style="color: {{$pokemon->type->color}}">{{$pokemon->type->type}}</span></p>
             <p class="card-text">Niveau: {{$pokemon->niveau}}</p>
             <div class="row text-center">
                 @auth
@@ -21,6 +22,9 @@
                 <p class="card-text w-100"><a href="{{route('release',$pokemon->id)}}" class="mx-auto my-2"><img src="{{asset('storage/openball.png')}}" alt=""></a></p>
                 @endif
                 @endauth
+                <a href="{{route('showGenre',$pokemon->genre->id)}}" class="col-5 mx-3 my-2 btn btn-primary">Show all Pokemon of this genre</a>
+                <a href="{{route('showType',$pokemon->type->id)}}" class="col-5 my-2 btn btn-primary">Show all Pokemon of this type</a>
+
                 <a href="{{route('editPokemon',$pokemon->id)}}" class="col-5 mx-3 btn btn-warning">Edit</a>
                 <a href="{{route('deletePokemon',$pokemon->id)}}" class="col-5 btn btn-danger">Delete</a>
             </div>

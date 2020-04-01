@@ -16954,6 +16954,10 @@ body {
   border-radius: 25%;
 }
 
+table {
+  width: 100%;
+}
+
 table,
 td {
   border: 1px solid #3490dc;
@@ -17013,5 +17017,11 @@ a img {
 
 .nbPoke {
   width: 20px;
+}
+
+.paginate-links {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
 }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Pokemon;
 use App\Type;
 use App\User;
+use App\Genre;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,9 +27,8 @@ class PokemonController extends Controller
     {
         //
 
-        $pokemons=Pokemon::all();
-        $types=Type::all();
-        return view('admin.pokemon.index',compact('pokemons','types'));
+        $pokemons=Pokemon::paginate(5);
+        return view('admin.pokemon.index',compact('pokemons'));
     }
 
     /**
@@ -39,7 +39,8 @@ class PokemonController extends Controller
     public function create()
     {
         $types=Type::all();
-        return view('admin.pokemon.add',compact('types'));
+        $genres=Genre::all();
+        return view('admin.pokemon.add',compact('types','genres'));
         
     }
 
@@ -55,7 +56,8 @@ class PokemonController extends Controller
             'nom'=>'required|string|unique:pokemons',
             'image'=>'required|image',
             'niveau'=>'required|min:0|max:100',
-            'id_type'=>'required|integer'
+            'id_type'=>'required|integer',
+            'id_genre'=>'required|integer',
         ]);
         $poke=new Pokemon();
         $image=Storage::put('public',$request->image);
@@ -63,6 +65,7 @@ class PokemonController extends Controller
         $poke->nom=$request->nom;
         $poke->niveau=$request->niveau;
         $poke->id_type=$request->id_type;
+        $poke->id_genre=$request->id_genre;
         $poke->image=$imageName;
         $poke->save();
         return redirect()->route('pokemon');
@@ -79,8 +82,7 @@ class PokemonController extends Controller
     public function show($id)
     {
         $pokemon = Pokemon::find($id);
-        $type=Type::where('id',$pokemon->id_type)->first();
-        return view('showPokemon',compact('pokemon','type'));
+        return view('showPokemon',compact('pokemon'));
     }
 
     /**
@@ -93,7 +95,8 @@ class PokemonController extends Controller
     {
         $poke=Pokemon::find($id);
         $types=Type::all();
-        return view('admin.pokemon.edit',compact('poke','types'));
+        $genres=Genre::all();
+        return view('admin.pokemon.edit',compact('poke','types','genres'));
     }
 
     /**
@@ -109,7 +112,8 @@ class PokemonController extends Controller
             'nom'=>'required|string|unique:pokemons,nom,'.$id,
             'image'=>'required|image',
             'niveau'=>'required|min:0|max:100',
-            'id_type'=>'required|integer'
+            'id_type'=>'required|integer',
+            'id_genre'=>'required|integer',
         ]);
         $poke=Pokemon::find($id);
         if(Storage::exists(public_path($poke->image))){
@@ -120,6 +124,7 @@ class PokemonController extends Controller
         $poke->nom=$request->nom;
         $poke->niveau=$request->niveau;
         $poke->id_type=$request->id_type;
+        $poke->id_genre=$request->id_genre;
         $poke->image=$imageName;
         $poke->save();
         return redirect()->route('pokemon');

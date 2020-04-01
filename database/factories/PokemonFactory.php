@@ -2,6 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\Genre;
 use App\Pokemon;
 use App\Type;
 use Faker\Generator as Faker;
@@ -15,6 +16,7 @@ $factory->define(Pokemon::class, function (Faker $faker) {
         'nom'=>$faker->pokemonName,
         'niveau'=>rand ( 1,100),
         'image'=>$filename,
-        'id_type'=>Type::inRandomOrder()->first()->id
+        'id_type'=>Type::inRandomOrder()->first()->id,
+        'id_genre'=>Genre::inRandomOrder()->first()->id,
     ];
 });

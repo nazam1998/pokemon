@@ -17,12 +17,6 @@ class ProfileController extends Controller
     }
     public function index(){
         $user=User::find(Auth::id());
-        if($user->id_role==1){
-            $pokemon=Pokemon::where('id_user',$user->id)->first();
-            $type=Type::where('id',$pokemon->id_type)->first();
-            return view('profile.index',compact('user','pokemon','type'));
-
-        }
         return view('profile.index',compact('user'));
     }
     public function buy(){

@@ -22,6 +22,7 @@
 </head>
 
 <body>
+    
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
             <div class="container">
@@ -41,6 +42,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('type')}}">Types</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('genre')}}">Genres</a>
                         </li>
                         @error('msg')
                         <li class="nav-item" style="position: absolute;top: 10%;left: 35%;">
