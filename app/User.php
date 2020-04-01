@@ -45,4 +45,7 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Pokemon', 'id_user');
     }
+    public function pokeballs(){
+        return $this->belongsToMany('App\Pokeball','id_user','id_pokeball');
+    }
 }
