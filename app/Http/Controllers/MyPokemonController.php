@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Pokemon;
 use App\User;
+use App\Bag;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Mail\PokemonMail;
@@ -22,13 +23,15 @@ class MyPokemonController extends Controller
 
     public function adopt($idPokeball,$idPokemon)
     {
+        $bag=Bag::all();
         $user = User::find(Auth::id());
         $pokemon = Pokemon::find($idPokemon);
         $body = 'You captured';
         // Mail::to($user->email,$user->name)->send(new PokemonMail($user,$pokemon,$body));
         $pokemon->id_user = Auth::id();
         $user->id_role = 1;
-        $user->pokeballs()->newPivotStatementForId($idPokeball)->delete();
+        $bag->where('id_user',Auth::id())->where('id_pokeball',$idPokeball)->first()->delete();
+        // $user->pokeballs()->newPivotStatementForId($idPokeball)->delete();
         $user->save();
         $pokemon->save();
         return redirect()->back();

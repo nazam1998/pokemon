@@ -10,9 +10,9 @@
                     <div class="card-body">
                     <h5 class="card-title">Nom: {{$user->name}}</h5>
                     <span class="card-text">Pokeball:</span>
-                    @if ($user->pokeball==0)
-                        0
-                    @else    
+                    @if ($user->pokeballs->count()==0)
+                        <div class="text-warning text-center">Vous n'avez actuellement aucune pokeball</div>
+                    @else
                     <p class="row container my-2">
                         <?php $i=0 ?>
                         @while ($i<$user->pokeballs->count() && $i<20)
@@ -22,8 +22,6 @@
                         @if ($user->pokeballs->count()>20)
                     <i class="fas fa-plus-circle my-1 mx-1">{{$user->pokeballs->count()-20}}<img src="{{asset('storage/'.$user->pokeballs[$i]->logo)}}" alt="" class="img-fluid nbPoke"></i>
                         @endif
-                        {{-- @for($i=0;;$i++)
-                        @endfor --}}
                     </p>
                     @endif
                     <p class="card-text">Credits: {{$user->credits}}$</p>
