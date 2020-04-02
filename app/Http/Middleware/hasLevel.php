@@ -26,13 +26,12 @@ class hasLevel
         $idPokeball=$request->route()->parameters()['idPokeball'];
         $idPokemon=$request->route()->parameters()['idPokemon'];
         
-        $user=User::find(Auth::id());
+        // $user=User::find(Auth::id());
         
         $pokeball=Pokeball::find($idPokeball);
         
         $pokemon=Pokemon::find($idPokemon);
-
-        if($pokeball->max >= $pokemon->level){
+        if($pokeball->max >= $pokemon->niveau){
             return $next($request);
         }
 

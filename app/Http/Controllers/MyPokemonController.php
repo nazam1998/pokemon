@@ -15,6 +15,7 @@ class MyPokemonController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('dresseur')->only('adopt');
         $this->middleware('pokeball')->only('adopt');
         $this->middleware('level')->only('adopt');
