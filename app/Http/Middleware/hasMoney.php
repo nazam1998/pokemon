@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-
+use App\Pokeball;
 class hasMoney
 {
     /**
@@ -16,7 +16,9 @@ class hasMoney
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check()&&Auth::user()->credits>=100){
+        $id=$request->route()->parameters()['id'];
+        $pokeball=Pokeball::find($id);
+        if(Auth::check()&&Auth::user()->credits>=$pokeball->prix){
             return $next($request);
         }
         return redirect()->back()->withErrors(['msg'=>'You don\'t have enough credits']);

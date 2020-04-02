@@ -3,7 +3,7 @@
 @section('title'){{$pokemon->nom}}@endsection
 @section('content')
 <div class="container mx-auto">
-    <div class="card" style="width: 18rem;">
+    <div class="card pokecard" style="width: 18rem;">
         <img src="{{asset('storage/'.$pokemon->image)}}" class="card-img-top">
         <hr>
         <div class="card-body text-center">

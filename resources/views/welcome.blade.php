@@ -5,7 +5,7 @@
 <div class="container text-center mx-auto">
     <div class="row text-center">  
         @foreach ($pokemons as $item)
-        <div class="card col-3 my-1" style="width: 18rem;">
+        <div class="card pokecard col-3 my-1" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">{{$item->nom}}</h5>
                 <p class="card-text">Type : <span style="color: {{$item->type->color}}"> {{$item->type->type}}</span></p>

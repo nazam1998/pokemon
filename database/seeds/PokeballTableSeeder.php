@@ -15,18 +15,18 @@ class PokeballTableSeeder extends Seeder
         App\Pokeball::truncate();
         DB::table('pokeballs')->insert([
             [
-            'nom'=>'classic',
-            'logo'=>'pokeball.jpg',
+            'nom'=>'Classic',
+            'logo'=>'classic.png',
             'prix'=>100
         ],
             [
-            'nom'=>'super',
-            'logo'=>'superball.png',
+            'nom'=>'Super',
+            'logo'=>'superball2.png',
             'prix'=>300
         ],
             [
-            'nom'=>'ultimate',
-            'logo'=>'ultimate.jpg',
+            'nom'=>'Master',
+            'logo'=>'masterball.png',
             'prix'=>500
         ],
         ]);

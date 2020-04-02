@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Pokeball;
 use App\Pokemon;
 use App\User;
 use App\Type;
@@ -19,11 +20,12 @@ class ProfileController extends Controller
         $user=User::find(Auth::id());
         return view('profile.index',compact('user'));
     }
-    public function buy(){
+    public function buy($id){
         $user=User::find(Auth::id());
-        
-        $user->credits-=100;
-        $user->pokeball+=1;
+        $pokeball=Pokeball::find($id);
+        $user->credits-=$pokeball->prix;
+        $user->pokeballs()->attach($id);
+        $pokeball->save();
         $user->save();
         return redirect()->back();
     }

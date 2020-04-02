@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,8 +45,10 @@ Route::get('admin/genre/edit/{id}','GenreController@edit')->name('editGenre');
 Route::post('admin/genre/update/{id}','GenreController@update')->name('updateGenre');
 Route::get('admin/genre/delete/{id}','GenreController@destroy')->name('deleteGenre');
 
+
 Auth::routes();
 
+
 Route::get('/profile','ProfileController@index')->name('profile');
-Route::get('/buyPokeball','ProfileController@buy')->name('buy');
+Route::get('/buyPokeball/{id}','ProfileController@buy')->name('buy');
 Route::get('/rechargeCredits','ProfileController@recharge')->name('recharge');

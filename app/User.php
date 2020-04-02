@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'id_role', 'pokeball', 'abandon', 'credits',
+        'name', 'email', 'password', 'id_role', 'pokeball', 'abandon', 'credits','id_pokeball',
     ];
 
     /**
@@ -46,6 +46,6 @@ class User extends Authenticatable
         return $this->hasOne('App\Pokemon', 'id_user');
     }
     public function pokeballs(){
-        return $this->belongsToMany('App\Pokeball','id_user','id_pokeball');
+        return $this->belongsToMany('App\Pokeball','pokeball_user','id_user','id_pokeball');
     }
 }

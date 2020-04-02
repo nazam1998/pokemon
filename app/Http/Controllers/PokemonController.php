@@ -142,6 +142,10 @@ class PokemonController extends Controller
         if(Storage::exists(public_path($poke->image))){
             unlink($poke->image);
         }
+        if($poke->id_user!=null){
+            $poke->user->id_role=2;
+            $poke->user->save();
+        }
         $poke->delete();
         return redirect()->route('welcome');
     }

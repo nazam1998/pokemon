@@ -72,10 +72,19 @@
                             <span class="nav-link text-center">Credits: {{Auth::user()->credits}}</span>
                         </li>
                         <li class="nav-item">
-                            <span class="nav-link text-center">Pokeball: {{Auth::user()->pokeball}}</span>
+                            <span class="nav-link text-center"></span>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('buy')}}">Buy More</a>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Pokeball: {{Auth::user()->pokeballs->count()}} <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                @foreach (App\Pokeball::all() as $item)
+                            <a class="dropdown-item" href="{{route('buy',$item->id)}}">{{$item->nom}}<img src="{{asset('storage/'.$item->logo)}}" alt=""></a>
+                                @endforeach
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('recharge')}}">Top up</a>

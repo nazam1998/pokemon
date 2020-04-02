@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Pokeball extends Model
 {
     public function users(){
-        return $this->belongsToMany('App\User','id_user','id_pokeball');
+        return $this->belongsToMany('App\User','pokeball_user','id_user','id_pokeball');
     }
 }

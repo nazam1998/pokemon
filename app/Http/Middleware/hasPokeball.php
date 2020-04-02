@@ -16,8 +16,7 @@ class hasPokeball
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->pokeball>0){
-
+        if(Auth::check() && Auth::user()->pokeballs->count()>0){
             return $next($request);
         }
         return redirect()->back()->withErrors(['msg'=>'You don\'t have enough pokeball']);
