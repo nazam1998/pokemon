@@ -13,7 +13,9 @@
                 @auth
 
                     @if (Auth::user()->id_role==2)
-            <a href="{{route('adopt',$item->id)}}"><img src="{{asset('storage/pokeball.jpg')}}" alt=""></a>
+                    @foreach (Auth::user()->pokeballs()->get() as $pokeball)
+                    <a href="{{route('adopt',['idPokeball'=>$pokeball->id,'idPokemon'=>$item->id])}}"><img src="{{asset('storage/'.$pokeball->logo)}}" alt=""></a>
+                    @endforeach
                     @elseif($item->id_user==Auth::id())
                     <a href="{{route('release',$item->id)}}"><img src="{{asset('storage/openball.png')}}" alt=""></a>
                     @endif

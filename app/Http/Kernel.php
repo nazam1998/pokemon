@@ -57,6 +57,7 @@ class Kernel extends HttpKernel
         'master' => \App\Http\Middleware\isMaster::class,
         'money' => \App\Http\Middleware\hasMoney::class,
         'pokeball' => \App\Http\Middleware\hasPokeball::class,
+        'level' => \App\Http\Middleware\hasLevel::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

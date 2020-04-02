@@ -25,7 +25,7 @@ Route::post('admin/pokemon/save','PokemonController@store')->name('savePokemon')
 Route::get('admin/pokemon/edit/{id}','PokemonController@edit')->name('editPokemon');
 Route::post('admin/pokemon/update/{id}','PokemonController@update')->name('updatePokemon');
 Route::get('admin/pokemon/delete/{id}','PokemonController@destroy')->name('deletePokemon');
-Route::get('pokemon/adopt/{id}','MyPokemonController@adopt')->name('adopt');
+Route::get('pokemon/adopt/{idPokeball}/{idPokemon}','MyPokemonController@adopt')->name('adopt');
 Route::get('pokemon/release/{id}','MyPokemonController@release')->name('release');
 
 

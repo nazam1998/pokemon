@@ -17,17 +17,20 @@ class PokeballTableSeeder extends Seeder
             [
             'nom'=>'Classic',
             'logo'=>'classic.png',
-            'prix'=>100
+            'prix'=>100,
+            'max'=>20
         ],
             [
             'nom'=>'Super',
             'logo'=>'superball2.png',
-            'prix'=>300
+            'prix'=>300,
+            'max'=>50
         ],
             [
             'nom'=>'Master',
             'logo'=>'masterball.png',
-            'prix'=>500
+            'prix'=>500,
+            'max'=>100
         ],
         ]);
     }

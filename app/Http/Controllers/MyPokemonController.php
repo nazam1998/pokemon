@@ -16,18 +16,19 @@ class MyPokemonController extends Controller
     {
         $this->middleware('dresseur')->only('adopt');
         $this->middleware('pokeball')->only('adopt');
+        $this->middleware('level')->only('adopt');
         $this->middleware('master')->only('release');
     }
 
-    public function adopt($id)
+    public function adopt($idPokeball,$idPokemon)
     {
         $user = User::find(Auth::id());
-        $pokemon = Pokemon::find($id);
+        $pokemon = Pokemon::find($idPokemon);
         $body = 'You captured';
-        Mail::to($user->email,$user->name)->send(new PokemonMail($user,$pokemon,$body));
+        // Mail::to($user->email,$user->name)->send(new PokemonMail($user,$pokemon,$body));
         $pokemon->id_user = Auth::id();
-        $user->pokeball -= 1;
         $user->id_role = 1;
+        $user->pokeballs()->newPivotStatementForId($idPokeball)->delete();
         $user->save();
         $pokemon->save();
         return redirect()->back();
@@ -39,7 +40,7 @@ class MyPokemonController extends Controller
         $pokemon->id_user = null;
         $user = User::find(Auth::id());
         $body = 'You released';
-        Mail::to($user->email,$user->name)->send(new PokemonMail($user,$pokemon,$body));
+        // Mail::to($user->email,$user->name)->send(new PokemonMail($user,$pokemon,$body));
         $user->id_role = 2;
         $user->abandon += 1;
         $user->save();

@@ -18,6 +18,7 @@ class CreatePokeballsTable extends Migration
             $table->string('nom');
             $table->string('logo');
             $table->float('prix');
+            $table->integer('max');
             $table->timestamps();
         });
 
