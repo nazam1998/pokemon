@@ -120,13 +120,19 @@
         <main class="py-4">
             @yield('content')
         </main>
+
         @if (session()->has('captured'))
         <div class="container captured-parent text-center animated fadeOutRight delay-2s mx-auto">
-            <div class="captured mx-auto w-75">
+            <div class="captured mx-auto w-75 text-center">
+            <h1 class="{{session('color')}} animated fadeIn">{{session('info')}}</h1>
                 <img src="{{asset('storage/'.session('logo'))}}" alt="" class="{{session('captured')}}">
             </div>
         </div>
         @endif
+
+
+
+        
     </div>
 </body>
 

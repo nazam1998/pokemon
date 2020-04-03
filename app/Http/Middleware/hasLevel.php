@@ -37,7 +37,7 @@ class hasLevel
 
         $bag->where('id_user',Auth::id())->where('id_pokeball',$idPokeball)->first()->delete();
         // $user->pokeballs()->newPivotStatementForId($idPokeball)->delete();
-        return redirect()->back()->with(['captured'=>'animated rotateOutDownLeft delay-1s','logo'=>$logo]);
+        return redirect()->back()->with(['captured'=>'animated rotateOutDownLeft delay-1s','logo'=>$logo,'info'=>'La pokeball n\'a aucun effet sur ce Pokemon','color'=>'text-danger']);
 
     }
 }

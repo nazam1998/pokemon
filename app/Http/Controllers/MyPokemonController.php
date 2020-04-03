@@ -16,6 +16,7 @@ class MyPokemonController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('owner')->only('adopt');
         $this->middleware('dresseur')->only('adopt');
         $this->middleware('pokeball')->only('adopt');
         $this->middleware('level')->only('adopt');
@@ -36,7 +37,7 @@ class MyPokemonController extends Controller
         // $user->pokeballs()->newPivotStatementForId($idPokeball)->delete();
         $user->save();
         $pokemon->save();
-        return redirect()->back()->with(['captured'=>'animated bounce delay-1s','logo'=>$logo]);
+        return redirect()->back()->with(['captured'=>'animated bounce delay-1s', 'logo'=>$logo, 'info'=>'La capture a été un succès','color'=>'text-success']);
     }
 
     public function release($id)
