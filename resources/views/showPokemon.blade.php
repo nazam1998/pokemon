@@ -16,9 +16,11 @@
                 @if(Auth::user()->id_role==2)
                 <p class="card-text w-100">
 
-                    @foreach (Auth::user()->pokeballs()->get() as $pokeball)
+                    @foreach ($pokeballs as $pokeball)
+                    {{count(Auth::user()->pokeballs->where('id',$pokeball->id))}}
                     <a href="{{route('adopt',['idPokeball'=>$pokeball->id,'idPokemon'=>$pokemon->id])}}"><img src="{{asset('storage/'.$pokeball->logo)}}" alt=""></a>
-                    @endforeach                </p>
+                    @endforeach
+                </p>
                 @endif
                 @if($pokemon->id_user==Auth::id())
                 <p class="card-text w-100"><a href="{{route('release',$pokemon->id)}}" class="mx-auto my-2"><img src="{{asset('storage/openball.png')}}" alt=""></a></p>

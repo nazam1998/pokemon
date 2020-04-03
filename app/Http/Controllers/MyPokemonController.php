@@ -28,6 +28,7 @@ class MyPokemonController extends Controller
         $user = User::find(Auth::id());
         $pokemon = Pokemon::find($idPokemon);
         $body = 'You captured';
+        $logo=$user->pokeballs->where('id',$idPokeball)->first()->logo;
         // Mail::to($user->email,$user->name)->send(new PokemonMail($user,$pokemon,$body));
         $pokemon->id_user = Auth::id();
         $user->id_role = 1;
@@ -35,7 +36,7 @@ class MyPokemonController extends Controller
         // $user->pokeballs()->newPivotStatementForId($idPokeball)->delete();
         $user->save();
         $pokemon->save();
-        return redirect()->back();
+        return redirect()->back()->with(['captured'=>'animated bounce delay-1s','logo'=>$logo]);
     }
 
     public function release($id)

@@ -29,7 +29,7 @@ class hasLevel
         // $user=User::find(Auth::id());
         
         $pokeball=Pokeball::find($idPokeball);
-        
+        $logo=$pokeball->logo;
         $pokemon=Pokemon::find($idPokemon);
         if($pokeball->max >= $pokemon->niveau){
             return $next($request);
@@ -37,7 +37,7 @@ class hasLevel
 
         $bag->where('id_user',Auth::id())->where('id_pokeball',$idPokeball)->first()->delete();
         // $user->pokeballs()->newPivotStatementForId($idPokeball)->delete();
-        return redirect()->back()->with(['msg'=>'You wasted a pokeball']);
+        return redirect()->back()->with(['captured'=>'animated rotateOutDownLeft delay-1s','logo'=>$logo]);
 
     }
 }

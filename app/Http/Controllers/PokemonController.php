@@ -6,6 +6,7 @@ use App\Pokemon;
 use App\Type;
 use App\User;
 use App\Genre;
+use App\Pokeball;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -82,7 +83,8 @@ class PokemonController extends Controller
     public function show($id)
     {
         $pokemon = Pokemon::find($id);
-        return view('showPokemon',compact('pokemon'));
+        $pokeballs=Pokeball::all();
+        return view('showPokemon',compact('pokemon','pokeballs'));
     }
 
     /**

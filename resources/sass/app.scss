@@ -8,6 +8,7 @@
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/regular';
 @import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~animate.css';
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
@@ -74,4 +75,23 @@ a {
     display: flex;
     justify-content: center;
     margin-top: 100px;
+}
+.captured-parent{
+    position: fixed;
+    top: 15%;
+    left: 15%;
+    z-index: 10;
+
+    .captured{
+        border-radius: 25px;
+        background: rgba($color: #ffffff, $alpha: 0.99);
+        padding: 100px 80px;
+        box-shadow: 10px 10px 15px black;
+        img{
+            width: 300px;
+        }
+        .bounce{
+            animation-iteration-count: 2;
+        }
+    }
 }

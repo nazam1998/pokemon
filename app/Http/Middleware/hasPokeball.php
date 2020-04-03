@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Pokeball;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,9 +17,10 @@ class hasPokeball
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->pokeballs->count()>0){
+        $id=$request->route()->parameters()['idPokeball'];
+        if(Auth::check() && Auth::user()->pokeballs->where('id',$id)->count()>0){
             return $next($request);
         }
-        return redirect()->back()->withErrors(['msg'=>'You don\'t have enough pokeball']);
+        return redirect()->back()->withErrors(['msg'=>'You don\'t have enough pokeball of this type']);
     }
 }
