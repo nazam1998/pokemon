@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Pokemon;
 use App\Genre;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -17,6 +18,8 @@ class GenreController extends Controller
      */
     public function index()
     {
+        $this->authorize('admin',User::class);
+
         $genres=Genre::all();
         return view('admin.genre.index',compact('genres'));
     }
@@ -28,6 +31,8 @@ class GenreController extends Controller
      */
     public function create()
     {
+        $this->authorize('admin',User::class);
+
         return view('admin.genre.add');
     }
 
@@ -39,6 +44,8 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('admin',User::class);
+
         $request->validate([
             'genre'=>'required|string|unique:genres',
         ]);
@@ -56,6 +63,8 @@ class GenreController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('admin',User::class);
+
         $genre=Genre::find($id);
         $pokemons=Pokemon::where('id_genre',$id)->paginate(10);
         return view('showGenre',compact('genre','pokemons'));
@@ -69,6 +78,8 @@ class GenreController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('admin',User::class);
+
         $genre=Genre::find($id);
         return view('admin.genre.edit',compact('genre'));
     }
@@ -85,6 +96,8 @@ class GenreController extends Controller
         $request->validate([
             'genre'=>'required|string|unique:genres,genre,'.$id,
         ]);
+        $this->authorize('admin',User::class);
+
         $genre=Genre::find($id);
         $genre->genre=$request->genre;
         $genre->save();
@@ -99,6 +112,8 @@ class GenreController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('admin',User::class);
+
         $genre=Genre::find($id);
    
         foreach ($genre->pokemons as $item) {

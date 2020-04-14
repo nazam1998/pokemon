@@ -37,6 +37,9 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @auth
+                        @can('admin', App\User::class)
+                            
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('pokemon')}}">Pokemons</a>
                         </li>
@@ -46,6 +49,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('genre')}}">Genres</a>
                         </li>
+                        @endcan
                         @error('msg')
                         <li class="nav-item" style="position: absolute;top: 10%;left: 35%;">
                             <span class="nav-link text-danger">{{$message}}</span>

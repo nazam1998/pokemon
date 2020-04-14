@@ -20,7 +20,6 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->float('credits');
-            $table->integer('pokeball');
             $table->integer('abandon');
             $table->unsignedBigInteger('id_role');
             $table->foreign('id_role')->on('roles')->references('id')->onDelete('cascade')->onUpdate('cascade');

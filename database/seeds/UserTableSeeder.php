@@ -17,9 +17,8 @@ class UserTableSeeder extends Seeder
             'name'=>'Nazam',
             'email'=>'nazam90-be@mail.com',
             'password'=>Hash::make('Nazam1998'),
-            'pokeball'=>2,
             'abandon'=>0,
-            'id_role'=>2,
+            'id_role'=>3,
             'credits'=>1000
         ]);
     }

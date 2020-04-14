@@ -13,18 +13,20 @@
             <p class="card-text">Niveau: {{$pokemon->niveau}}</p>
             <div class="row text-center">
                 @auth
-                @if(Auth::user()->id_role==2)
+                @can('idDresseur')
                 <p class="card-text w-100">
 
                     @foreach ($pokeballs as $pokeball)
+                    @can('hasPoke',$pokeball)
                     {{count(Auth::user()->pokeballs->where('id',$pokeball->id))}}
                     <a href="{{route('adopt',['idPokeball'=>$pokeball->id,'idPokemon'=>$pokemon->id])}}"><img src="{{asset('storage/'.$pokeball->logo)}}" alt=""></a>
+                    @endcan
                     @endforeach
                 </p>
-                @endif
-                @if($pokemon->id_user==Auth::id())
+                @endcan
+                @can('isOwn',$pokemon)
                 <p class="card-text w-100"><a href="{{route('release',$pokemon->id)}}" class="mx-auto my-2"><img src="{{asset('storage/openball.png')}}" alt=""></a></p>
-                @endif
+                @endcan
                 @endauth
                 <a href="{{route('showGenre',$pokemon->genre->id)}}" class="col-5 mx-3 my-2 btn btn-primary">Show all Pokemon of this genre</a>
                 <a href="{{route('showType',$pokemon->type->id)}}" class="col-5 my-2 btn btn-primary">Show all Pokemon of this type</a>

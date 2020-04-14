@@ -14,18 +14,19 @@
                         alt=""></a>
                 @auth
                 <p class="card-text">
+                    @can('isDresseur')
 
-
-
-                    @if (Auth::user()->id_role==2)
                     @foreach ($pokeballs as $pokeball)
+                    @can('hasPoke',$pokeball)
+                    <a href="{{route('adopt',['idPokeball'=>$pokeball->id,'idPokemon'=>$item->id])}}">
+                        <img src="{{asset('storage/'.$pokeball->logo)}}" alt="">
+                    </a>
                     {{count(Auth::user()->pokeballs->where('id',$pokeball->id))}}
-                    <a href="{{route('adopt',['idPokeball'=>$pokeball->id,'idPokemon'=>$item->id])}}"><img
-                            src="{{asset('storage/'.$pokeball->logo)}}" alt=""></a>
+                    @endcan
                     @endforeach
                     @elseif($item->id_user==Auth::id())
                     <a href="{{route('release',$item->id)}}"><img src="{{asset('storage/openball.png')}}" alt=""></a>
-                    @endif
+                    @endcan
                 </p>
                 @endauth
             </div>

@@ -6,6 +6,7 @@ use App\Pokemon;
 use App\Type;
 use App\User;
 use App\Genre;
+use App\Helpers\General\CollectionHelper;
 use App\Pokeball;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -26,9 +27,14 @@ class PokemonController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('admin',User::class);
 
         $pokemons=Pokemon::paginate(5);
+        return view('admin.pokemon.index',compact('pokemons'));
+    }
+
+    public function sort(Request $request){
+        $pokemons=Pokemon::orderBy($request->order);
         return view('admin.pokemon.index',compact('pokemons'));
     }
 
@@ -39,6 +45,8 @@ class PokemonController extends Controller
      */
     public function create()
     {
+        $this->authorize('admin',User::class);
+
         $types=Type::all();
         $genres=Genre::all();
         return view('admin.pokemon.add',compact('types','genres'));
@@ -54,12 +62,14 @@ class PokemonController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom'=>'required|string|unique:pokemons',
+            'nom'=>'required|string',
             'image'=>'required|image',
             'niveau'=>'required|min:0|max:100',
             'id_type'=>'required|integer',
             'id_genre'=>'required|integer',
         ]);
+        $this->authorize('admin',User::class);
+
         $poke=new Pokemon();
         $image=Storage::put('public',$request->image);
         $imageName=basename($image);
@@ -82,6 +92,8 @@ class PokemonController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('admin',User::class);
+
         $pokemon = Pokemon::find($id);
         $pokeballs=Pokeball::all();
         return view('showPokemon',compact('pokemon','pokeballs'));
@@ -95,6 +107,8 @@ class PokemonController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('admin',User::class);
+
         $poke=Pokemon::find($id);
         $types=Type::all();
         $genres=Genre::all();
@@ -111,12 +125,14 @@ class PokemonController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nom'=>'required|string|unique:pokemons,nom,'.$id,
+            'nom'=>'required|string',
             'image'=>'required|image',
             'niveau'=>'required|min:0|max:100',
             'id_type'=>'required|integer',
             'id_genre'=>'required|integer',
         ]);
+        $this->authorize('admin',User::class);
+
         $poke=Pokemon::find($id);
         if(Storage::exists(public_path($poke->image))){
             unlink($poke->image);
@@ -140,6 +156,8 @@ class PokemonController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('admin',User::class);
+
         $poke=Pokemon::find($id);
         if(Storage::exists(public_path($poke->image))){
             unlink($poke->image);
@@ -151,4 +169,19 @@ class PokemonController extends Controller
         $poke->delete();
         return redirect()->route('welcome');
     }
+    public function search(Request $request){
+        $search=Pokemon::where('nom','LIKE','%'.$request->nom.'%')->get();
+        $total=count($search);
+        $pokemons = CollectionHelper::paginate($search, $total, 5);
+
+        if(count($search)==0){
+            $msg="Sorry! We couldn't any pokemon with this name";
+            $msgColor='danger';
+        }else{
+            $msg='We found '.$total.' pokemons with this name';
+            $msgColor='success';
+        }
+        return view('admin.pokemon.show',compact('pokemons','msg','msgColor'));
+    }
 }
+

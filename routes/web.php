@@ -28,6 +28,8 @@ Route::get('admin/pokemon/delete/{id}','PokemonController@destroy')->name('delet
 Route::get('pokemon/adopt/{idPokeball}/{idPokemon}','MyPokemonController@adopt')->name('adopt');
 Route::get('pokemon/release/{id}','MyPokemonController@release')->name('release');
 
+Route::any('pokemon/search','PokemonController@search')->name('searchPokemon');
+
 
 Route::get('showType/{id}','TypeController@show')->name('showType');
 Route::get('admin/type','TypeController@index')->name('type');

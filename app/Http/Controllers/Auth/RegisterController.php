@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Mail\Subscribed;
-use Illuminate\Support\Facades\Mail;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -66,15 +64,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // Mail::to($data['email'],$data['name'])->send(new Subscribed($data['name'],$data['email']));
+        if(count(User::all())==0){
+            $role=3;
+        }else{
+            $role=2;
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'id_role'=>2,
-            'pokeball'=>0,
-            'credits'=>1000,
-            'abandon'=>0
+            'credits'=>1500,
+            'abandon'=>0,
+            'id_role'=>$role,
         ]);
     }
 }

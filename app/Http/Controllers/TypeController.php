@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Pokemon;
 use App\Type;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -10,6 +11,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class TypeController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +19,7 @@ class TypeController extends Controller
      */
     public function index()
     {
+        $this->authorize('admin',User::class);
         $types=Type::all();
         return view('admin.type.index',compact('types'));
     }
@@ -28,6 +31,8 @@ class TypeController extends Controller
      */
     public function create()
     {
+        $this->authorize('admin',User::class);
+
         return view('admin.type.add');
     }
 
@@ -43,6 +48,8 @@ class TypeController extends Controller
             'type'=>'required|string|unique:types',
             'color'=>["required","regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/"]
         ]);
+        $this->authorize('admin',User::class);
+
         $type=new Type();
         $type->type=$request->type;
         $type->color=$request->color;
@@ -58,6 +65,7 @@ class TypeController extends Controller
      */
     public function show($id)
     {
+        
         $type=Type::find($id);
         $pokemons=Pokemon::where('id_type',$id)->paginate(10);
         return view('showType',compact('type','pokemons'));
@@ -71,6 +79,8 @@ class TypeController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('admin',User::class);
+
         $type=Type::find($id);
         return view('admin.type.edit',compact('type'));
     }
@@ -84,6 +94,8 @@ class TypeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('admin',User::class);
+
         $request->validate([
             'type'=>'required|string|unique:types,type,'.$id,
             'color'=>["required","regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/"]
@@ -103,6 +115,8 @@ class TypeController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('admin',User::class);
+
         $type=Type::find($id);
    
         foreach ($type->pokemons as $item) {
@@ -115,15 +129,5 @@ class TypeController extends Controller
         $type->delete();
         return redirect()->back();
     }
-    public function paginate($items, $perPage, $page = null, $options = [])
 
-    {
-
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
-
-    }
 }
